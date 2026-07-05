@@ -62,7 +62,7 @@ This is Part 2 of my Home SOC Lab series. Part 1 covers the full Wazuh multi-end
 
 ### Step 1 — Install Suricata on Kali Linux
 
-![Wazuh official documentation showing install commands](WazuhIDS/Wazuh%20IDS.JPG)
+![Wazuh official documentation showing install commands](WazuhIDS/Wazuh%20IDS%20.JPG)
 
 ```bash
 sudo add-apt-repository ppa:oisf/suricata-stable
@@ -291,9 +291,8 @@ Alert fields visible in dashboard:
 ## Author
 
 **Kuldeep Choudhary**
-- LinkedIn: [linkedin.com/in/kuldeep-choudhary-28193311b](https://linkedin.com/in/kuldeep-choudhary-28193311b)
-- GitHub: [github.com/Deep2511](https://github.com/Deep2511)
-- Medium: System Weakness Publication
+- LinkedIn:https://www.linkedin.com/in/kuldeep-choudhary-28193311b/
+- Medium:https://medium.com/@ckuldeep28/how-i-added-real-time-threat-detection-to-my-home-soc-using-suricata-and-wazuh-a0143291a862
 
 ---
 
