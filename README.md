@@ -62,7 +62,7 @@ This is Part 2 of my Home SOC Lab series. Part 1 covers the full Wazuh multi-end
 
 ### Step 1 — Install Suricata on Kali Linux
 
-![Wazuh official documentation showing install commands](screenshots/Wazuh%20IDS.JPG)
+![Wazuh official documentation showing install commands](WazuhIDS/Wazuh%20IDS.JPG)
 
 ```bash
 sudo add-apt-repository ppa:oisf/suricata-stable
@@ -92,7 +92,7 @@ sudo find /etc/suricata/rules -name "*.rules" -exec chmod 777 {} \;
 
 ### Step 3 — Configure suricata.yaml
 
-![Wazuh official documentation showing required suricata.yaml changes](screenshots/Wazuh%20IDS%201.JPG)
+![Wazuh official documentation showing required suricata.yaml changes](WazuhIDS/Wazuh%20IDS%201.JPG)
 
 ```bash
 sudo nano /etc/suricata/suricata.yaml
@@ -105,7 +105,7 @@ HOME_NET: "[192.168.0.0/22]"
 EXTERNAL_NET: "any"
 ```
 
-![suricata.yaml showing HOME_NET and EXTERNAL_NET configured](screenshots/Wazuh%20IDS%202.JPG)
+![suricata.yaml showing HOME_NET and EXTERNAL_NET configured](WazuhIDS/Wazuh%20IDS%202.JPG)
 
 #### 3.2 — Enable Stats
 
@@ -114,7 +114,7 @@ stats:
   enabled: yes
 ```
 
-![suricata.yaml showing stats enabled](screenshots/Wazuh%20IDS%203.JPG)
+![suricata.yaml showing stats enabled](WazuhIDS/Wazuh%20IDS%203.JPG)
 
 #### 3.3 — Set Rule Path
 
@@ -124,7 +124,7 @@ rule-files:
   - "*.rules"
 ```
 
-![suricata.yaml showing default-rule-path and rule-files configured](screenshots/Wazuh%20IDS%204.JPG)
+![suricata.yaml showing default-rule-path and rule-files configured](WazuhIDS/Wazuh%20IDS%204.JPG)
 
 #### 3.4 — Set Network Interface
 
@@ -133,7 +133,7 @@ af-packet:
   - interface: eth0
 ```
 
-![suricata.yaml showing af-packet interface set to eth0](screenshots/Wazuh%20IDS%205.JPG)
+![suricata.yaml showing af-packet interface set to eth0](WazuhIDS/Wazuh%20IDS%205.JPG)
 
 > **Note:** Run `ip a` to confirm your interface name before editing. In this lab it was `eth0`.
 
@@ -143,7 +143,7 @@ Save and exit with `Ctrl+X`, then `Y`, then `Enter`.
 
 ### Step 4 — Start and Enable Suricata
 
-![Wazuh official documentation showing restart Suricata command](screenshots/Wazuh%20IDS%206.JPG)
+![Wazuh official documentation showing restart Suricata command](WazuhIDS/Wazuh%20IDS%206.JPG)
 
 ```bash
 sudo systemctl start suricata
@@ -151,7 +151,7 @@ sudo systemctl enable suricata
 sudo systemctl status suricata
 ```
 
-![Kali Linux terminal showing Suricata active and running](screenshots/Wazuh%20IDS%207.JPG)
+![Kali Linux terminal showing Suricata active and running](WazuhIDS/Wazuh%20IDS%207.JPG)
 
 Expected output confirms:
 - `Active: active (running)`
@@ -161,7 +161,7 @@ Expected output confirms:
 
 ### Step 5 — Configure Wazuh Agent to Read eve.json
 
-![Wazuh official documentation showing ossec.conf localfile block](screenshots/Wazuh%20IDS%208.JPG)
+![Wazuh official documentation showing ossec.conf localfile block](WazuhIDS/Wazuh%20IDS%208.JPG)
 
 ```bash
 sudo nano /var/ossec/etc/ossec.conf
@@ -176,7 +176,7 @@ Add inside `<ossec_config>`:
 </localfile>
 ```
 
-![ossec.conf showing localfile block added with eve.json location highlighted](screenshots/Wazuh%20IDS%209.JPG)
+![ossec.conf showing localfile block added with eve.json location highlighted](WazuhIDS/Wazuh%20IDS%209.JPG)
 
 > **Important:** Ensure the XML block is properly aligned with surrounding configuration. Misaligned XML will cause the Wazuh agent to fail on restart.
 
@@ -186,7 +186,7 @@ Save the file.
 
 ### Step 6 — Restart Wazuh Agent
 
-![Wazuh official documentation showing restart wazuh-agent command](screenshots/Wazuh%20IDS%2010.JPG)
+![Wazuh official documentation showing restart wazuh-agent command](WazuhIDS/Wazuh%20IDS%2010.JPG)
 
 ```bash
 sudo systemctl restart wazuh-agent
@@ -204,7 +204,7 @@ tail /var/log/suricata/eve.json
 tail -f /var/log/suricata/eve.json
 ```
 
-![Kali Linux terminal showing tail command output with eve.json data](screenshots/Wazuh%20IDS%2011.JPG)
+![Kali Linux terminal showing tail command output with eve.json data](WazuhIDS/Wazuh%20IDS%2011.JPG)
 
 Confirmed output includes `rules_loaded: 401` and active event types.
 
@@ -218,7 +218,7 @@ Ping from Wazuh Manager (Ubuntu) toward Kali Linux to generate detectable traffi
 ping -c 20 192.168.4.30
 ```
 
-![Ubuntu terminal showing ping command to Kali Linux IP with 20 packets sent](screenshots/Wazuh%20IDS%2012.JPG)
+![Ubuntu terminal showing ping command to Kali Linux IP with 20 packets sent](WazuhIDS/Wazuh%20IDS%2012.JPG)
 
 > **Note:** Official Wazuh documentation performs this ping toward an Ubuntu endpoint. In this lab, Suricata is on Kali Linux — so the ping targets Kali's IP instead. Traffic crosses eth0 where Suricata is monitoring.
 
@@ -232,7 +232,7 @@ In Wazuh Discover, apply filter:
 location: /var/log/suricata/eve.json
 ```
 
-![Wazuh Discover dashboard showing 38 hits with eve.json location filter applied](screenshots/Wazuh%20IDS%2013.JPG)
+![Wazuh Discover dashboard showing 38 hits with eve.json location filter applied](WazuhIDS/Wazuh%20IDS%2013.JPG)
 
 **Result: 38 hits confirmed** — Suricata alerts flowing from Kali Linux into Wazuh Manager in real time.
 
@@ -291,8 +291,9 @@ Alert fields visible in dashboard:
 ## Author
 
 **Kuldeep Choudhary**
-- LinkedIn: https://www.linkedin.com/in/kuldeep-choudhary-28193311b/
-- Medium: https://medium.com/@ckuldeep28/how-i-added-real-time-threat-detection-to-my-home-soc-using-suricata-and-wazuh-a0143291a862
+- LinkedIn: [linkedin.com/in/kuldeep-choudhary-28193311b](https://linkedin.com/in/kuldeep-choudhary-28193311b)
+- GitHub: [github.com/Deep2511](https://github.com/Deep2511)
+- Medium: System Weakness Publication
 
 ---
 
